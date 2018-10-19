@@ -13,7 +13,7 @@ namespace TUI.Data.Common.Options
         public PaginationOptions()
         {
             PageNumber = 1;
-            PageSize = 5;
+            PageSize = 2;
         }
     }
 }

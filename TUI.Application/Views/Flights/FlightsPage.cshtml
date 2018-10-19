@@ -1,0 +1,14 @@
+﻿@using TUI.Data.Flights.Options
+@model TUI.Data.Flights.DTOs.FlightDTO.PaginatedDTO
+@{
+    ViewData["Title"] = "Flights";
+
+    await Html.RenderPartialAsync("Partials/FlightCreate", new FlightPostOptions());
+
+    await Html.RenderPartialAsync("Partials/FlightsList", Model.Data);
+
+    ViewData["Controller"] = "Flights";
+    ViewData["Action"] = "GetPage";
+
+    await Html.RenderPartialAsync("../Common/Partials/Pagination", Model, ViewData);
+}

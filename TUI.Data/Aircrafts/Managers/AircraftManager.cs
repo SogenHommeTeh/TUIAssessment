@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.ApplicationInsights;
 using Microsoft.EntityFrameworkCore;
 using TUI.Data.Aircrafts.Models;
 using TUI.Data.Aircrafts.Options;
 using TUI.Data.Common.Managers;
 using TUI.Data.Common.Options;
+using TUI.Data.Common.Utils;
 using TUI.Error.Exceptions;
 
 namespace TUI.Data.Aircrafts.Managers
@@ -17,13 +19,11 @@ namespace TUI.Data.Aircrafts.Managers
         {
         }
 
-        public IEnumerable<AircraftModel> GetPage(PaginationOptions options)
+        public PageModel<AircraftModel> GetPage(PaginationOptions options)
         {
-            var models = Context.Aircrafts.OrderBy(aircraft => aircraft.Number)
-                .Include(aircraft => aircraft.Flights.Where(flight => flight.DepartureTime <= DateTime.UtcNow &&
-                                                                      flight.ArrivalTime >= DateTime.UtcNow));
+            var models = Context.Aircrafts.OrderBy(aircraft => aircraft.Number);
 
-            return models.AsNoTracking().GetPage(options);
+            return new PageModel<AircraftModel>(options, models.AsNoTracking());
         }
 
         public AircraftModel Post(AircraftPostOptions options)
@@ -40,7 +40,7 @@ namespace TUI.Data.Aircrafts.Managers
             return model;
         }
 
-        public async void DeleteAsync(Guid publicId)
+        public async Task DeleteAsync(Guid publicId)
         {
             var model = await Context.Aircrafts.FirstOrDefaultAsync(aircraft => aircraft.PublicId == publicId);
             if (model == null) throw new NotFoundException();

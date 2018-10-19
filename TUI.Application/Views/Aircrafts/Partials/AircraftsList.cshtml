@@ -1,0 +1,54 @@
+﻿@model IEnumerable<TUI.Data.Aircrafts.DTOs.AircraftDTO>
+
+<hr />
+<h4>List Aircrafts</h4>
+<hr />
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CreatedAt)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Number)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ConsumptionPerKm)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TakeOffEffort)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreatedAt)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Number)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ConsumptionPerKm)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TakeOffEffort)
+                </td>
+                <td>
+                    @Html.ActionLink("Delete", "DeleteAsync", "Aircrafts", new { id = item.PublicId })
+                </td>
+            </tr>
+            if (item.Flights?.Any() ?? false)
+            {
+                <tr>
+                    <td colspan="5">
+                        Keeeeeeeeeeeeeek
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>

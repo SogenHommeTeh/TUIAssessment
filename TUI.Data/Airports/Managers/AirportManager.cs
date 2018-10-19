@@ -1,12 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.ApplicationInsights;
 using Microsoft.EntityFrameworkCore;
 using TUI.Data.Airports.Models;
 using TUI.Data.Airports.Options;
 using TUI.Data.Common.Managers;
 using TUI.Data.Common.Options;
+using TUI.Data.Common.Utils;
 using TUI.Error.Exceptions;
 
 namespace TUI.Data.Airports.Managers
@@ -17,11 +18,11 @@ namespace TUI.Data.Airports.Managers
         {
         }
 
-        public IEnumerable<AirportModel> GetPage(PaginationOptions options)
+        public PageModel<AirportModel> GetPage(PaginationOptions options = null)
         {
             var models = Context.Airports.OrderBy(airport => airport.Name);
 
-            return models.AsNoTracking().GetPage(options);
+            return new PageModel<AirportModel>(options, models.AsNoTracking());
         }
 
         public AirportModel Post(AirportPostOptions options)
@@ -38,12 +39,12 @@ namespace TUI.Data.Airports.Managers
             return model;
         }
 
-        public async void DeleteAsync(Guid publicId)
+        public async Task DeleteAsync(Guid publicId)
         {
-            var model = await Context.Aircrafts.FirstOrDefaultAsync(aircraft => aircraft.PublicId == publicId);
+            var model = await Context.Airports.FirstOrDefaultAsync(aircraft => aircraft.PublicId == publicId);
             if (model == null) throw new NotFoundException();
 
-            Context.Aircrafts.Remove(model);
+            Context.Airports.Remove(model);
         }
     }
 }

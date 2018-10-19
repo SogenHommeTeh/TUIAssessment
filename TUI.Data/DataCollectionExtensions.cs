@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using Microsoft.Extensions.DependencyInjection;
 using TUI.Data.Aircrafts.Managers;
 using TUI.Data.Airports.Managers;
@@ -19,8 +18,9 @@ namespace TUI.Data
             return services;
         }
 
-        public static IEnumerable<TSource> GetPage<TSource>(this IEnumerable<TSource> enumerable, PaginationOptions options)
+        public static IQueryable<TSource> GetPage<TSource>(this IQueryable<TSource> enumerable, PaginationOptions options = null)
         {
+            options = options ?? new PaginationOptions();
             return enumerable
                 .Skip((options.PageNumber - 1) * options.PageSize)
                 .Take(options.PageSize);

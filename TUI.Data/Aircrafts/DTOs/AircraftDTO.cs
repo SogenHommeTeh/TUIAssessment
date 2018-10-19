@@ -4,7 +4,7 @@ using TUI.Data.Aircrafts.Models;
 using TUI.Data.Common.DTOs;
 using TUI.Data.Flights.DTOs;
 
-namespace TUI.Data.Airports.Options
+namespace TUI.Data.Aircrafts.DTOs
 {
     public class AircraftDTO : DTO<AircraftDTO, AircraftModel>
     {

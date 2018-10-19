@@ -8,7 +8,7 @@ namespace TUI.Data.Common.Utils
 
         public double Longitude { get; set; }
 
-        public double DistanceTo(GPSPosition to)
+        public double DistanceInKmTo(GPSPosition to)
         {
             var fromCoordinate = new GeoCoordinate(Latitude, Longitude);
             var toCoordinate = new GeoCoordinate(to.Latitude, to.Longitude);

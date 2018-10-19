@@ -1,0 +1,58 @@
+﻿@model IEnumerable<TUI.Data.Flights.DTOs.FlightDTO>
+
+<hr />
+<h4>List Flights</h4>
+<hr />
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CreatedAt)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DepartureAirport) - @Html.DisplayNameFor(model => model.ArrivalAirport)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DepartureTime) - @Html.DisplayNameFor(model => model.ArrivalTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DistanceInKm)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Aircraft)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FuelNeeded)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreatedAt)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DepartureAirport.Name) - @Html.DisplayFor(modelItem => item.ArrivalAirport.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DepartureTime) - @Html.DisplayFor(modelItem => item.ArrivalTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DistanceInKm)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Aircraft.Number)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FuelNeeded)
+            </td>
+            <td>
+                @Html.ActionLink("Delete", "DeleteAsync", "Flights", new { id = item.PublicId })
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>

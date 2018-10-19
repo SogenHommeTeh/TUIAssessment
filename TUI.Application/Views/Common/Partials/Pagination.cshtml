@@ -1,0 +1,39 @@
+﻿@model TUI.Data.Common.DTOs.PaginatedDTO
+
+@{
+    var previousDisabled = Model.PageNumber <= 1 ? "disabled" : "";
+    var nextDisabled = Model.PageNumber >= Model.TotalPage ? "disabled" : "";
+    var boundariesDisabled = Model.TotalPage <= 1 ? "disabled" : "";
+}
+
+<div class="row">
+    <p>Page @Model.PageNumber, @Model.PageSize record(s) per page, @Model.TotalData total</p>
+    <a asp-controller="@ViewData["Controller"]"
+       asp-action="@ViewData["Action"]"
+       asp-route-PageNumber="1"
+       asp-route-PageSize="@Model.PageSize"
+       class="btn btn-primary @boundariesDisabled">
+        First
+    </a>
+    <a asp-controller="@ViewData["Controller"]"
+       asp-action="@ViewData["Action"]"
+       asp-route-PageNumber="@(Model.PageNumber - 1)"
+       asp-route-PageSize="@Model.PageSize"
+       class="btn btn-primary @previousDisabled">
+        Previous
+    </a>
+    <a asp-controller="@ViewData["Controller"]"
+       asp-action="@ViewData["Action"]"
+       asp-route-PageNumber="@(Model.PageNumber + 1)"
+       asp-route-PageSize="@Model.PageSize"
+       class="btn btn-primary @nextDisabled">
+        Next
+    </a>
+    <a asp-controller="@ViewData["Controller"]"
+       asp-action="@ViewData["Action"]"
+       asp-route-PageNumber="@Model.TotalPage"
+       asp-route-PageSize="@Model.PageSize"
+       class="btn btn-primary @boundariesDisabled">
+        Last
+    </a>
+</div>

@@ -1,11 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.ApplicationInsights;
 using Microsoft.EntityFrameworkCore;
 using TUI.Data.Common.Managers;
 using TUI.Data.Common.Options;
+using TUI.Data.Common.Utils;
 using TUI.Data.Flights.DTOs;
 using TUI.Data.Flights.Models;
 using TUI.Data.Flights.Options;
@@ -19,11 +19,15 @@ namespace TUI.Data.Flights.Managers
         {
         }
         
-        public IEnumerable<FlightModel> GetPage(PaginationOptions options)
+        public PageModel<FlightModel> GetPage(PaginationOptions options = null)
         {
-            var models = Context.Flights.OrderByDescending(flight => flight.DepartureTime);
+            var models = Context.Flights
+                .Include(flight => flight.DepartureAirport)
+                .Include(flight => flight.ArrivalAirport)
+                .Include(flight => flight.Aircraft)
+                .OrderByDescending(flight => flight.DepartureTime);
 
-            return models.AsNoTracking().GetPage(options);
+            return new PageModel<FlightModel>(options, models.AsNoTracking());
         }
 
         public async Task<FlightModel> PostAsync(FlightPostOptions options)
@@ -56,12 +60,12 @@ namespace TUI.Data.Flights.Managers
             return model;
         }
 
-        public async void DeleteAsync(Guid publicId)
+        public async Task DeleteAsync(Guid publicId)
         {
-            var model = await Context.Aircrafts.FirstOrDefaultAsync(aircraft => aircraft.PublicId == publicId);
+            var model = await Context.Flights.FirstOrDefaultAsync(aircraft => aircraft.PublicId == publicId);
             if (model == null) throw new NotFoundException();
 
-            Context.Aircrafts.Remove(model);
+            Context.Flights.Remove(model);
         }
     }
 }

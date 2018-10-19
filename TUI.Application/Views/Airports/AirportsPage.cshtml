@@ -1,0 +1,14 @@
+﻿@using TUI.Data.Airports.Options
+@model TUI.Data.Airports.DTOs.AirportDTO.PaginatedDTO
+@{
+    ViewData["Title"] = "Airports";
+
+    await Html.RenderPartialAsync("Partials/AirportCreate", new AirportPostOptions());
+
+    await Html.RenderPartialAsync("Partials/AirportsList", Model.Data);
+
+    ViewData["Controller"] = "Airports";
+    ViewData["Action"] = "GetPage";
+
+    await Html.RenderPartialAsync("../Common/Partials/Pagination", Model, ViewData);
+}

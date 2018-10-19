@@ -1,4 +1,6 @@
-﻿namespace TUI.Data.Common.Options
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace TUI.Data.Common.Options
 {
     public class GPSPositionOptions
     {

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using TUI.Data.Common.Options;
+using TUI.Data.Common.Utils;
 
 namespace TUI.Data.Common.DTOs
 {
@@ -21,25 +21,34 @@ namespace TUI.Data.Common.DTOs
             return models?.Select(CreateDTO) ?? new List<TDTO>();
         }
 
-        public static PaginatedDTO CreatePaginatedDTOs(PaginationOptions options, IEnumerable<TModel> models)
+        public static PaginatedDTO CreatePaginatedDTOs(PageModel<TModel> model)
         {
-            return new PaginatedDTO(options, models);
+            return new PaginatedDTO(model);
         }
 
-        public class PaginatedDTO
+        public class PaginatedDTO : DTOs.PaginatedDTO
         {
-            public int PageNumber { get; set; }
-
-            public int PageSize { get; set; }
-
             public IEnumerable<TDTO> Data { get; set; }
 
-            public PaginatedDTO(PaginationOptions options, IEnumerable<TModel> models)
+            public PaginatedDTO(PageModel<TModel> model)
             {
-                PageNumber = options.PageNumber;
-                PageSize = options.PageSize;
-                Data = CreateDTOs(models);
+                PageNumber = model.PageNumber;
+                PageSize = model.PageSize;
+                TotalData = model.TotalData;
+                TotalPage = model.TotalPage;
+                Data = CreateDTOs(model.Data);
             }
         }
+    }
+
+    public class PaginatedDTO
+    {
+        public int PageNumber { get; set; }
+
+        public int PageSize { get; set; }
+
+        public int TotalData { get; set; }
+
+        public int TotalPage { get; set; }
     }
 }

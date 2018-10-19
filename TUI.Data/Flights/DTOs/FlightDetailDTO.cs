@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using TUI.Data.Aircrafts.Models;
+﻿using TUI.Data.Aircrafts.Models;
 using TUI.Data.Airports.Models;
-using TUI.Data.Flights.Models;
 
 namespace TUI.Data.Flights.DTOs
 {
@@ -16,7 +12,8 @@ namespace TUI.Data.Flights.DTOs
         public FlightDetailDTO(AirportModel departureAirportModel, AirportModel arrivalAirportModel,
             AircraftModel aircraftModel)
         {
-
+            DistanceInKm = departureAirportModel.DistanceInKmTo(arrivalAirportModel);
+            FuelNeeded = DistanceInKm * aircraftModel.ConsumptionPerKm + aircraftModel.TakeOffEffort;
         }
     }
 }
