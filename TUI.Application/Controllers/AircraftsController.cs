@@ -24,6 +24,13 @@ namespace TUI.Application.Controllers
             return View("AircraftsPage", AircraftDTO.CreatePaginatedDTOs(_aircraftManager.GetPage(options)));
         }
 
+        [HttpGet("json")]
+        public IActionResult GetJSONPage([FromQuery]PaginationOptions options)
+        {
+            return Json(AircraftDTO.CreatePaginatedDTOs(_aircraftManager.GetPage(options)));
+        }
+
+
         [HttpPost]
         public async Task<IActionResult> PostAsync(AircraftPostOptions options)
         {

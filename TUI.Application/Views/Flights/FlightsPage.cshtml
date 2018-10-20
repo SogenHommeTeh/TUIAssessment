@@ -10,5 +10,5 @@
     ViewData["Controller"] = "Flights";
     ViewData["Action"] = "GetPage";
 
-    await Html.RenderPartialAsync("../Common/Partials/Pagination", Model, ViewData);
+    await Html.RenderPartialAsync("~/Views/Common/Partials/Pagination.cshtml", Model, ViewData);
 }

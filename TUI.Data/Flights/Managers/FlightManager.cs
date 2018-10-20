@@ -18,7 +18,7 @@ namespace TUI.Data.Flights.Managers
         public FlightManager(ApplicationDbContext context, TelemetryClient telemetryClient) : base(context, telemetryClient)
         {
         }
-        
+
         public PageModel<FlightModel> GetPage(PaginationOptions options = null)
         {
             var models = Context.Flights
@@ -32,24 +32,30 @@ namespace TUI.Data.Flights.Managers
 
         public async Task<FlightModel> PostAsync(FlightPostOptions options)
         {
+            options.DepartureTime = options.DepartureTime.ToUniversalTime();
+            options.ArrivalTime = options.ArrivalTime.ToUniversalTime();
+            if (options.DepartureTime <= DateTime.UtcNow || options.DepartureTime >= options.ArrivalTime)
+                throw new InvalidParameterException();
             var departureAirportModel = await Context.Airports.FirstOrDefaultAsync(airport => airport.PublicId == options.DepartureAirportId);
             if (departureAirportModel == null) throw new NotFoundException();
             var arrivalAirportModel = await Context.Airports.FirstOrDefaultAsync(airport => airport.PublicId == options.ArrivalAirportId);
             if (arrivalAirportModel == null) throw new NotFoundException();
             var aircraftModel = await Context.Aircrafts.FirstOrDefaultAsync(aircraft => aircraft.PublicId == options.AircraftId);
             if (aircraftModel == null) throw new NotFoundException();
-            var isFlying = Context.Flights.Any(flight => flight.AircraftId == aircraftModel.Id &&
-                                                         flight.DepartureTime <= DateTime.UtcNow &&
-                                                         flight.ArrivalTime >= DateTime.UtcNow);
+            var isFlying = Context.Flights.Any(flight =>
+                flight.AircraftId == aircraftModel.Id &&
+                (flight.DepartureTime >= options.DepartureTime && flight.DepartureTime < options.ArrivalTime ||
+                 flight.ArrivalTime > options.DepartureTime && flight.ArrivalTime <= options.ArrivalTime ||
+                 flight.DepartureTime < options.DepartureTime && flight.ArrivalTime > options.ArrivalTime));
             if (isFlying) throw new AircraftAlreadyFlyingException();
 
             var detail = new FlightDetailDTO(departureAirportModel, arrivalAirportModel, aircraftModel);
             var model = new FlightModel
             {
                 DepartureAirport = departureAirportModel,
-                DepartureTime = options.DepartureTime.ToUniversalTime(),
+                DepartureTime = options.DepartureTime,
                 ArrivalAirport = arrivalAirportModel,
-                ArrivalTime = options.ArrivalTime.ToUniversalTime(),
+                ArrivalTime = options.ArrivalTime,
                 Aircraft = aircraftModel,
                 DistanceInKm = detail.DistanceInKm,
                 FuelNeeded = detail.FuelNeeded,

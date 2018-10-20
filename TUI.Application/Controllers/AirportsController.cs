@@ -24,6 +24,12 @@ namespace TUI.Application.Controllers
             return View("AirportsPage", AirportDTO.CreatePaginatedDTOs(_airportManager.GetPage(options)));
         }
 
+        [HttpGet("json")]
+        public IActionResult GetJSONPage([FromQuery]PaginationOptions options)
+        {
+            return Json(AirportDTO.CreatePaginatedDTOs(_airportManager.GetPage(options)));
+        }
+
         [HttpPost]
         public async Task<IActionResult> PostAsync(AirportPostOptions options)
         {

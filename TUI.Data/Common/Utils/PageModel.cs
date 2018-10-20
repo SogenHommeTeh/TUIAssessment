@@ -22,7 +22,7 @@ namespace TUI.Data.Common.Utils
             PageSize = options.PageSize;
             TotalData = data.Count();
             TotalPage = TotalData / PageSize;
-            if (TotalData - TotalPage * PageSize > 0) TotalPage++;
+            if (TotalData > TotalPage * PageSize) TotalPage++;
             Data = data.GetPage(options);
         }
     }

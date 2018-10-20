@@ -1,0 +1,90 @@
+﻿@model TUI.Application.Views.Common.Models.SelectModel
+@{
+    var pagination = new PaginationOptions();
+
+    var keyInput = Model.Value + "KeyInput";
+    var selectListContainer = Model.Value + "SelectListContainer";
+    var selectList = Model.Value + "SelectList";
+    var loadList = Model.Value + "LoadList";
+
+    var previousButton = Model.Value + "Previous";
+    var nextButton = Model.Value + "Next";
+}
+
+<input id="@keyInput" name="@keyInput" value="@Model.Key" class="form-control" type="text" readonly />
+<input id="@Model.Value" name="@Model.Value" type="hidden" readonly />
+<div id="@selectListContainer" class="form-control select-list-container" style="display: none;">
+    <div id="@selectList" class="select-list"></div>
+    <div class="text-center">
+        <a onclick="@(loadList)(pageNumber - 1, pageSize)"
+                id="@previousButton"
+                class="btn btn-primary">
+            Previous
+        </a>
+        <a onclick="@(loadList)(pageNumber + 1, pageSize)"
+                id="@nextButton"
+                class="btn btn-primary">
+            Next
+        </a>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(@keyInput).click(function (e) {
+        e.stopPropagation();
+        $(@selectListContainer).toggle();
+    });
+
+    $(@selectListContainer).click(function (e) {
+        e.stopPropagation();
+    });
+
+    $("body").click(function () {
+        $(@selectListContainer).hide();
+    });
+
+    function @(Model.Value + "UpdateKeyValue")(newKey, newValue) {
+        $(@keyInput).val(newKey);
+        $(@Model.Value).val(newValue);
+        $(@selectListContainer).hide();
+    };
+
+    var pageNumber = @(pagination.PageNumber);
+    var pageSize = @(pagination.PageSize);
+
+    function @(loadList)(newPageNumber, newPageSize) {
+        $(@previousButton).addClass("disabled");
+        $(@nextButton).addClass("disabled");
+        const url = "@Url.Content("~/")" + "@(Model.Url)";
+        $.getJSON(url,
+            {
+                PageNumber: newPageNumber,
+                PageSize: newPageSize,
+            },
+            function (page) {
+                var items = "";
+                $.each(page.data, function(i, record) {
+                    items += `<div class="select-option" onclick='@(Model.Value)UpdateKeyValue("${record["@Model.KeyJSONKey"]}", "${record["@Model.ValueJSONKey"]}")'>${record["@Model.KeyJSONKey"]}</div>`;
+                })
+                $(@selectList).empty();
+                $(@selectList).html(items);
+
+                pageNumber = newPageNumber;
+                pageSize = newPageSize;
+
+                if (page.page_number > 1)
+                    $(@previousButton).removeClass("disabled");
+                if (page.page_number < page.total_page)
+                    $(@nextButton).removeClass("disabled");
+            }
+        ).fail(function () {
+            $(@previousButton).removeClass("disabled");
+            $(@nextButton).removeClass("disabled");
+        });
+    }
+
+    $(document).ready(function () {
+        console.log(pageNumber);
+        @(loadList)(pageNumber, pageSize);
+    });
+</script>
