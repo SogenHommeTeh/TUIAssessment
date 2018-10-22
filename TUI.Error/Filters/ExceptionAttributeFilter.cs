@@ -5,7 +5,7 @@ using TUI.Error.Responses;
 
 namespace TUI.Error.Filters
 {
-	public class ExceptionFilterAttribute : IExceptionFilter
+	public class ExceptionAttributeFilter : IExceptionFilter
 	{
 		public void OnException(ExceptionContext context)
 		{

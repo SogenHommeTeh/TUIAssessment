@@ -11,7 +11,7 @@ namespace TUI.Error
             services.Configure<MvcOptions>(options =>
             {
                 options.Filters.Add<ValidationModelFilter>();
-                options.Filters.Add<ExceptionFilterAttribute>();
+                options.Filters.Add<ExceptionAttributeFilter>();
             });
             return services;
         }

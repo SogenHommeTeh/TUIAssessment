@@ -1,6 +1,6 @@
-﻿namespace TUI.Data.Common.Options
+﻿namespace TUI.Data.Common.Models
 {
-    public class GPSPositionOptions
+    public class GPSPositionModel
     {
         public double Latitude { get; set; }
 

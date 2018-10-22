@@ -1,4 +1,4 @@
-﻿@model TUI.Application.Views.Common.Models.SelectModel
+﻿@model TUI.Application.Views.Common.Models.SelectPaginatedModel
 @{
     var pagination = new PaginationOptions();
 
@@ -84,7 +84,6 @@
     }
 
     $(document).ready(function () {
-        console.log(pageNumber);
         @(loadList)(pageNumber, pageSize);
     });
 </script>

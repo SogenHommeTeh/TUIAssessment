@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using TUI.Data.Common.Options;
 
-namespace TUI.Data.Common.Utils
+namespace TUI.Data.Common.Models
 {
     public class PageModel<TModel>
     {

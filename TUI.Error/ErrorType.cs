@@ -7,16 +7,18 @@ namespace TUI.Error
     [JsonConverter(typeof(StringEnumConverterHelper))]
     public enum ErrorType
     {
+        None = 0,
+
         [EnumMember(Value = "network_error")]
-        NetworkError = 0,
+        NetworkError = 50,
         [EnumMember(Value = "invalid_parameter")]
-        InvalidParameter = 1,
+        InvalidParameter = 51,
         [EnumMember(Value = "unauthorized_action")]
-        UnauthorizedAction = 2,
+        UnauthorizedAction = 52,
         [EnumMember(Value = "not_found")]
-        NotFound = 3,
+        NotFound = 53,
         [EnumMember(Value = "forbidden")]
-        Forbidden = 4,
+        Forbidden = 54,
 
         [EnumMember(Value = "aircraft_already_flying")]
         AircraftAlreadyFlying = 100,

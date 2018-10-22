@@ -5,8 +5,7 @@ using Microsoft.ApplicationInsights;
 using Microsoft.EntityFrameworkCore;
 using TUI.Data.Common.Managers;
 using TUI.Data.Common.Options;
-using TUI.Data.Common.Utils;
-using TUI.Data.Flights.DTOs;
+using TUI.Data.Common.Models;
 using TUI.Data.Flights.Models;
 using TUI.Data.Flights.Options;
 using TUI.Error.Exceptions;
@@ -49,7 +48,7 @@ namespace TUI.Data.Flights.Managers
                  flight.DepartureTime < options.DepartureTime && flight.ArrivalTime > options.ArrivalTime));
             if (isFlying) throw new AircraftAlreadyFlyingException();
 
-            var detail = new FlightDetailDTO(departureAirportModel, arrivalAirportModel, aircraftModel);
+            var detail = FlightDetailManager.GetFlightDetail(departureAirportModel, arrivalAirportModel, aircraftModel);
             var model = new FlightModel
             {
                 DepartureAirport = departureAirportModel,

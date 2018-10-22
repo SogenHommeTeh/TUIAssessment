@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using TUI.Data.Common.Utils;
+using TUI.Data.Common.Models;
 using TUI.Data.Flights.Models;
 
 namespace TUI.Data.Airports.Models
 {
     [Table("Airports")]
-    public class AirportModel : GPSPosition
+    public class AirportModel : GPSPositionModel
     {
         [Key]
         public int Id { get; set; }

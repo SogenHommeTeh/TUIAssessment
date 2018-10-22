@@ -27,7 +27,7 @@
                 <label asp-for="DepartureAirportId" class="control-label">DepartureAirport</label>
                 @{
                     await Html.RenderPartialAsync("~/Views/Common/Partials/SelectPaginated.cshtml",
-                        new SelectModel
+                        new SelectPaginatedModel
                         {
                             Key = "Select",
                             Value = "DepartureAirportId",
@@ -47,7 +47,7 @@
                 <label asp-for="ArrivalAirportId" class="control-label">ArrivalAirport</label>
                 @{
                     await Html.RenderPartialAsync("~/Views/Common/Partials/SelectPaginated.cshtml",
-                        new SelectModel
+                        new SelectPaginatedModel
                         {
                             Key = "Select",
                             Value = "ArrivalAirportId",
@@ -67,7 +67,7 @@
                 <label asp-for="AircraftId" class="control-label">Aircraft</label>
                 @{
                     await Html.RenderPartialAsync("~/Views/Common/Partials/SelectPaginated.cshtml",
-                        new SelectModel
+                        new SelectPaginatedModel
                         {
                             Key = "Select",
                             Value = "AircraftId",

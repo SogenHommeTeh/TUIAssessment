@@ -14,7 +14,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TUI.Data", "TUI.Data\TUI.Da
 		{244DA1B5-44B4-40F7-9455-D20F09C2F86E} = {244DA1B5-44B4-40F7-9455-D20F09C2F86E}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TUI.Error", "TUI.Error\TUI.Error.csproj", "{244DA1B5-44B4-40F7-9455-D20F09C2F86E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TUI.Error", "TUI.Error\TUI.Error.csproj", "{244DA1B5-44B4-40F7-9455-D20F09C2F86E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TUI.Data.Test", "TUI.Data.Test\TUI.Data.Test.csproj", "{07615AAC-5B11-4AEF-A043-49903D390DD1}"
+	ProjectSection(ProjectDependencies) = postProject
+		{29E03B55-4979-4DFE-9D54-38F88D3527BB} = {29E03B55-4979-4DFE-9D54-38F88D3527BB}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -34,6 +39,10 @@ Global
 		{244DA1B5-44B4-40F7-9455-D20F09C2F86E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{244DA1B5-44B4-40F7-9455-D20F09C2F86E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{244DA1B5-44B4-40F7-9455-D20F09C2F86E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{07615AAC-5B11-4AEF-A043-49903D390DD1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{07615AAC-5B11-4AEF-A043-49903D390DD1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{07615AAC-5B11-4AEF-A043-49903D390DD1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{07615AAC-5B11-4AEF-A043-49903D390DD1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

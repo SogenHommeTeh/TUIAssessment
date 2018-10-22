@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.ApplicationInsights;
@@ -8,7 +7,7 @@ using TUI.Data.Aircrafts.Models;
 using TUI.Data.Aircrafts.Options;
 using TUI.Data.Common.Managers;
 using TUI.Data.Common.Options;
-using TUI.Data.Common.Utils;
+using TUI.Data.Common.Models;
 using TUI.Error.Exceptions;
 
 namespace TUI.Data.Aircrafts.Managers
@@ -19,7 +18,7 @@ namespace TUI.Data.Aircrafts.Managers
         {
         }
 
-        public PageModel<AircraftModel> GetPage(PaginationOptions options)
+        public PageModel<AircraftModel> GetPage(PaginationOptions options = null)
         {
             var models = Context.Aircrafts.OrderBy(aircraft => aircraft.Number);
 

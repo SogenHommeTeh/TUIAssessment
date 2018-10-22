@@ -2,7 +2,7 @@
 
 namespace TUI.Application.Views.Common.Models
 {
-    public class SelectModel
+    public class SelectPaginatedModel
     {
         [Required]
         public string Key { get; set; }

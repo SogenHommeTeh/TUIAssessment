@@ -7,7 +7,7 @@ using TUI.Data.Airports.Models;
 using TUI.Data.Airports.Options;
 using TUI.Data.Common.Managers;
 using TUI.Data.Common.Options;
-using TUI.Data.Common.Utils;
+using TUI.Data.Common.Models;
 using TUI.Error.Exceptions;
 
 namespace TUI.Data.Airports.Managers
