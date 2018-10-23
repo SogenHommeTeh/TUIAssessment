@@ -41,14 +41,6 @@
                     @Html.ActionLink("Delete", "DeleteAsync", "Aircrafts", new { id = item.PublicId })
                 </td>
             </tr>
-            if (item.Flights?.Any() ?? false)
-            {
-                <tr>
-                    <td colspan="5">
-                        Keeeeeeeeeeeeeek
-                    </td>
-                </tr>
-            }
         }
     </tbody>
 </table>
